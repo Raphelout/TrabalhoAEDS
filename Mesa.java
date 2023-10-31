@@ -26,16 +26,18 @@ public class Mesa {
     public String getData() {
         return data;
     }
+    public boolean getReserva(){
+        return reserva;
+    }
 
     //Reservar
     public boolean reservar(){
 
         System.out.println("PARA O/A/Ê REPRESENTANTE DA RESERVA");
-
-        System.out.println("Qual o seu nome, sinhor(a/e)?");
+        System.out.print("Por favor, informe o seu nome, senhor(a/e)?");
         pessoas[0].setNome(leitor.nextLine());
 
-        System.out.println("E qual o seu email?");
+        System.out.print("\nEm seguida, o email para contato: ");
         pessoas[0].setEmail(leitor.nextLine());
         
         System.out.println("A mesa é para quantas pessoas? [1:6]");
@@ -43,8 +45,8 @@ public class Mesa {
         
         System.out.println("Quer reservar pra quando?");
         this.data = leitor.nextLine();
-
-        return this.reserva = true;
+        this.reserva = true;
+        return true;
     }
 
 }

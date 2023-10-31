@@ -9,21 +9,9 @@ public class TesteRestaurante {
         //Cria restaurante
         Restaurante r1 = new Restaurante("Buchinho Cheio", "Rua Infoslindos, 203, Coltecufmg", 10);
 
+        //dá boas vindas
         System.out.print("Bem vindo ao Restaurante " + r1.getNome());
         
-
-        while (true){
-            System.out.println("Digite o que quer fazer");
-            
-            // reservar
-            // listar reservas
-            // cancelar reserva
-            // fazer pedido
-            // pagar pedido
-            // sair
-
-            
-        }
 
     }
 }
