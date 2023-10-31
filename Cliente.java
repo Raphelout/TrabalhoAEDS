@@ -1,4 +1,4 @@
-public class Cliente {
+public class Cliente {//OK
     
     //Atributos
     private String nome;

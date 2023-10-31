@@ -41,7 +41,7 @@ public class Mesa {
         pessoas[0].setEmail(leitor.nextLine());
         
         System.out.println("A mesa é para quantas pessoas? [1:6]");
-        pessoas = new Cliente[leitor.nextInt()];    leitor.nextLine();
+        pessoas = new Cliente[leitor.nextInt()]; leitor.nextLine();
         
         System.out.println("Quer reservar pra quando?");
         this.data = leitor.nextLine();
