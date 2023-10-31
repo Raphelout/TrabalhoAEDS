@@ -47,7 +47,7 @@ public class Restaurante {
         System.out.println("    [3] - Listar mesas reservadas");
         System.out.println("    [4] - Fazer um pedido");
         System.out.println("    [5] - Pagar pelo pedido");
-        System.out.println("    [0] - Sair");
+        System.out.println("[0] - Sair");
         int escolha = leitor.nextInt();
         leitor.nextLine();
         return escolha;     
