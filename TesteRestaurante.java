@@ -7,7 +7,7 @@ public class TesteRestaurante {
         Scanner leitor = new Scanner(System.in);
         
         //Cria restaurante
-        Restaurante r1 = new Restaurante("Buchinho Cheio", "Rua Infoslindos, 203, Coltecufmg", 10);
+        Restaurante r1 = new Restaurante("Buchinho Cheio", "Rua Infoslindos, 203, Coltecufmg");
 
         //Dá boas vindas
         System.out.print("Bem vindo ao Restaurante " + r1.getNome());

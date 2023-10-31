@@ -49,4 +49,11 @@ public class Mesa {
         return true;
     }
 
+    //Cancelar reserva
+    public boolean cancelar(){
+        this.reserva = false;
+        pessoas = new Cliente[0];
+        return false;
+    }
+
 }

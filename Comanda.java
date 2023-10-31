@@ -5,18 +5,18 @@ public class Comanda {
     private double valor;
 
     //Setters
-    public void setConsumo(String consumo) {
+    public void setConsumo(String consumo){
         this.consumo = consumo;
     }
-    public void setValor(double valor) {
+    public void setValor(double valor){
         this.valor = valor;
     }
 
     //Getters
-    public String getConsumo() {
+    public String getConsumo(){
         return consumo;
     }
-    public double getValor() {
+    public double getValor(){
         return valor;
     }
 
