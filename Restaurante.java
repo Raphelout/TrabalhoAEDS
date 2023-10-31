@@ -16,6 +16,7 @@ public class Restaurante {
         this.endereco = enderecof;
         mesas = new Mesa[qmesasf];
         for (int i = 0; i < mesas.length; i++){
+            mesas[i] = new Mesa();
             mesas[i].setNumeroMesa(i+1);
         }
     }
