@@ -1,7 +1,7 @@
-///////////////////////////////////////////////////////////////////////
-// Dupla: Raphael Inácio Bicalho de Carvalho e Luka guimarâes Fantini//
-// Comanda.java                                                      //
-///////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+// Dupla: Raphael Inácio Bicalho de Carvalho e Luka Guimarães Fantini //
+// Restaurante.java                                                   //
+////////////////////////////////////////////////////////////////////////
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -56,72 +56,71 @@ public class Restaurante {
 
 
     void fazerPedido(){
-        int escolha;
-        System.out.println("Qual é a mesa fazendo o pedido?");
-        escolha = leitor.nextInt(); leitor.nextLine();
-        listaM.get(escolha).pedidoM();
+        int imesa;
+        System.out.print("Digite a mesa que fará o pedido: ");
+        imesa = leitor.nextInt(); leitor.nextLine();
+        listaM.get(imesa).pedidoM();
     }
 
+    //Lista mesas reservadas
     void listarMesas(){
         System.out.println("Mesas reservadas: ");
         for(int i = 0; i < listaM.size(); i++){
             if (listaM.get(i).getReserva() == true){
-                System.out.println("Mesa número : " + listaM.get(i).getNumeroMesa());
+                System.out.println("Mesa[" + listaM.get(i).getNumeroMesa() + "]: " + listaM.get(i).clientes[0].getNome() + " (" + listaM.get(i).getData() + ")");
             }
         }
     }
-    //Método para imprimir o menu e coletar resposta
+
+    //Menu
     public void menuRestaurante(){
         int escolha;
 
         do {
             System.out.println("\nDigite o que quer fazer");
-            System.out.println("    [1] - Reservar uma mesa");
+            System.out.println("    [1] - Reservar mesa");
             System.out.println("    [2] - Cancelar reserva");
             System.out.println("    [3] - Listar mesas reservadas");
-            System.out.println("    [4] - Fazer um pedido");
+            System.out.println("    [4] - Fazer pedido");
             System.out.println("    [5] - Pagar pelo pedido");
             System.out.println("    [0] - Sair");
             escolha = leitor.nextInt();
             leitor.nextLine();
+            System.out.println();
 
             switch (escolha) {
-                case 1:
-                    System.out.println();
+                case 1: //Reservar mesa 
+                    /* falta fazer com que a disponibilidade de mesas seja relativa à data */
                     listaM.get(findVazia()).reservar();
                     break;
         
-                case 2:
-                    System.out.println();
+                case 2: //Cancelar reserva
                     System.out.print("Digite a mesa que deseja retirar a reserva: ");
                     listaM.get(leitor.nextInt()).cancelar();
                     break;
             
-                case 3:
-                    System.out.println();
-                    //listar mesas reservadas
+                case 3: //Listar mesas reservadas
                     this.listarMesas();
+                    break;//ok
+            
+                case 4: //Fazer pedido
+                        /* colocar menu de pedidos */
+                    this.fazerPedido();
                     break;
             
-                case 4:
-                    System.out.println();
-                    this.fazerPedido(); //fazer pedidio
-                    break;
-            
-                case 5:
-                    System.out.println();
+                case 5: //Pagar pelo pedido
                     //pagar pedido
                     break;
-                case 0:
-                System.out.println("obrigado por apreciar o restaurante :) ");
+
+                case 0: //Sair
+                    System.out.println("Obrigado por apreciar o restaurante :) ");
+                    break;
+
                 default:
                     System.out.println("Essa opção nao existe");
                     break;
             }
         } while (escolha != 0);
     }
-
-
-    
 
 }

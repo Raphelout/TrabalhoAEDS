@@ -1,7 +1,7 @@
-///////////////////////////////////////////////////////////////////////
-// Dupla: Raphael Inácio Bicalho de Carvalho e Luka guimarâes Fantini//
-// Comanda.java                                                      //
-///////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+// Dupla: Raphael Inácio Bicalho de Carvalho e Luka Guimarães Fantini //
+// Comanda.java                                                       //
+////////////////////////////////////////////////////////////////////////
 
 import java.util.ArrayList;
 
@@ -13,8 +13,8 @@ public class Comanda {
     Mesa mesacomanda;
 
     //Cria lista de pedidos
-    ArrayList<String> nomePedidos = new ArrayList<>();
-    ArrayList<Double> precoPedidos = new ArrayList<>();
+    ArrayList<String> codigoPedidos = new ArrayList<>();//Para registrar nomes (para comanda)
+    ArrayList<Double> precoPedidos = new ArrayList<>();//Para calcular valor
 
     //Setters
     public void setConsumo(String consumo){
@@ -32,11 +32,13 @@ public class Comanda {
         return valor;
     }
 
+    /*
     public void listarConsumo(){
-        for (int i = 0; i < nomePedidos.size(); i++){
-            System.out.println("Pedido número " + i + " " + nomePedidos.get(i) + " - " + precoPedidos.get(i) + "R$");
+        for (int i = 0; i < codigoPedidos.size(); i++){
+            System.out.println("Pedido número " + i + " " + codigoPedidos.get(i) + " - " + precoPedidos.get(i) + "R$");
         }
     }
+    */
 
     public double calcular10porcento(){
         return valor/10;
