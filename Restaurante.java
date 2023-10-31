@@ -21,25 +21,25 @@ public class Restaurante {
     }
 
     //Setters
-    public void setNome(String nome) {
+    public void setNome(String nome){
         this.nome = nome;
     }
-    public void setEndereco(String endereco) {
+    public void setEndereco(String endereco){
         this.endereco = endereco;
     }
 
     //Getters
-    public String getNome() {
+    public String getNome(){
         return nome;
     }
-    public String getEndereco() {
+    public String getEndereco(){
         return endereco;
     }
-    public Mesa[] getMesas() {
+    public Mesa[] getMesas(){
         return mesas;
     }
 
-    //função para imprimir o menu e coletar resposta
+    //Método para imprimir o menu e coletar resposta
     public int menuRestaurante(){
         System.out.println("Digite o que quer fazer");
         System.out.println("    [1] - Reservar uma mesa");
@@ -47,18 +47,10 @@ public class Restaurante {
         System.out.println("    [3] - Listar mesas reservadas");
         System.out.println("    [4] - Fazer um pedido");
         System.out.println("    [5] - Pagar pelo pedido");
-        System.out.println("[0] - Sair");
+        System.out.println("    [0] - Sair");
         int escolha = leitor.nextInt();
         leitor.nextLine();
-        return escolha;
-            // reservar
-            // listar reservas
-            // cancelar reserva
-            // fazer pedido
-            // pagar pedido
-            // sair
-
-            
+        return escolha;     
     }        
     
 }
