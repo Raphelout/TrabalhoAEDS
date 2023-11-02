@@ -18,8 +18,6 @@ public class TesteRestaurante {
         System.out.print("\nBem vindo ao Restaurante " + r1.getNome());
         r1.menuRestaurante();
 
-
-
         leitor.close();
     }
 }

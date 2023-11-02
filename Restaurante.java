@@ -50,26 +50,38 @@ public class Restaurante {
                 return i;
             }
         }
-        System.out.println("não tem mesa vazia");
+        System.out.println("Não tem mesa vazia");
         return listaM.size() + 1;
     }
 
+    public void cancelarReserva(){
+        System.out.print("Digite a mesa que deseja retirar a reserva: ");
+        listaM.get(leitor.nextInt()).cancelar();
+    }
 
-    void fazerPedido(){
+    public void fazerPedido(){
         int imesa;
-        System.out.print("Digite a mesa que fará o pedido: ");
+        System.out.print("Digite a mesa que deseja fazer o pedido: ");
         imesa = leitor.nextInt(); leitor.nextLine();
-        listaM.get(imesa).pedidoM();
+        listaM.get(imesa-1).pedir();
+    }
+
+    public void pagarPedido(){
+        int imesa;
+        System.out.print("Digite a mesa que deseja pagar: ");
+        imesa = leitor.nextInt(); leitor.nextLine();
+        listaM.get(imesa-1).pagar();
     }
 
     //Lista mesas reservadas
-    void listarMesas(){
+    public void listarMesas(){
         System.out.println("Mesas reservadas: ");
         for(int i = 0; i < listaM.size(); i++){
             if (listaM.get(i).getReserva() == true){
                 System.out.println("Mesa[" + listaM.get(i).getNumeroMesa() + "]: " + listaM.get(i).clientes[0].getNome() + " (" + listaM.get(i).getData() + ")");
             }
         }
+        System.out.println();
     }
 
     //Menu
@@ -95,21 +107,21 @@ public class Restaurante {
                     break;
         
                 case 2: //Cancelar reserva
-                    System.out.print("Digite a mesa que deseja retirar a reserva: ");
-                    listaM.get(leitor.nextInt()).cancelar();
-                    break;
+                    this.cancelarReserva();
+                    break;//ok
             
                 case 3: //Listar mesas reservadas
                     this.listarMesas();
                     break;//ok
             
                 case 4: //Fazer pedido
-                        /* colocar menu de pedidos */
+                    this.listarMesas();
                     this.fazerPedido();
-                    break;
+                    break;//ok
             
                 case 5: //Pagar pelo pedido
-                    //pagar pedido
+                    this.listarMesas();
+                    this.pagarPedido();
                     break;
 
                 case 0: //Sair
