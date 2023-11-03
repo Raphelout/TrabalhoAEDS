@@ -54,7 +54,7 @@ public class Mesa {
 
         System.out.print("Em seguida, o email para contato: ");
         clientes[0].setEmail(leitor.nextLine());
-        System.out.println("MESA RESERVADA COM SUCESSO (0)");
+        System.out.println("MESA RESERVADA COM SUCESSO");
         this.reserva = true;
         return true;
     }
@@ -63,6 +63,7 @@ public class Mesa {
     public boolean cancelar(){
         this.reserva = false;
         clientes = new Cliente[0];
+        mesaComanda = new Comanda();
         return false;
     }
 
@@ -84,8 +85,11 @@ public class Mesa {
                 //Pega o codigo do pedido
                 esc = leitor.nextInt();
                 leitor.nextLine();
-
-                if (esc != 0 ){
+                if (esc > 6 || esc < 0) {   
+                    System.out.println("Essa opção não existe");
+                    continue;
+                }
+                if (esc != 0) {
 
                     //Adiciona pedido na lista de pedidos
                     mesaComanda.codigoPedidos.add(esc);
@@ -95,6 +99,7 @@ public class Mesa {
                     mesaComanda.setValor(mesaComanda.getValor() + mesaComanda.precoPedidos.get(esc - 1));
                     System.out.printf("Valor atual da comanda: " + "%.2f\n", mesaComanda.getValor());
                 }
+            
                   
             } while(esc != 0);
        
@@ -104,44 +109,56 @@ public class Mesa {
     }
 
     public void pagar(){ 
-        
-        // voce quer racha isso dai? 
-        // printiefa pagamento efetuado
-        // retira mesa da lista 
 
         if (this.reserva){
             // mostra a comanda toda
             mesaComanda.listarConsumo();
 
+            int esc;
+
             //Acrescentar 10% ao valor total (gorjeta)
-            System.out.print("Se você deseja pagar a gorjeta(10%), digite 1: ");
-            int esc = leitor.nextInt();
+            System.out.print("Se você deseja pagar a gorjeta(10%), digite 1 (se não, digite 0): ");
+            esc = leitor.nextInt();
             leitor.nextLine();   
             if (esc == 1){
                 mesaComanda.setValor(mesaComanda.getValor() + mesaComanda.calcular10porcento());
                 System.out.printf("Valor atualizado: R$%.2f\n", mesaComanda.getValor());
             }
 
-            System.out.printf("Você gostaria de doar %.2f centavos para as crianças com câncer do Hospital Humberto Honda? Se sim, digite 1: ", mesaComanda.calcularSobra());
+            System.out.printf("Você gostaria de doar %.2f centavos para as crianças com câncer do Hospital Humberto Honda? Se sim, digite 1 (se não, digite 0): ", mesaComanda.calcularSobra());
             esc = leitor.nextInt();
-            leitor.nextLine();
+            leitor.nextLine();  
             if (esc == 1){
                 mesaComanda.setValor(mesaComanda.getValor() + mesaComanda.calcularSobra());
                 System.out.printf("Valor atualizado: R$%.2f\n", mesaComanda.getValor());
             }
+
             if (clientes.length > 1){
-                
-                System.out.println("Se as pessoas da mesa gostariam de dividir a conta, digite 1");
+                System.out.print("Se as pessoas da mesa gostariam de dividir a conta, digite 1 (se não, digite 0): ");
                 esc = leitor.nextInt();
-                leitor.nextLine();
+                leitor.nextLine();  
                 if (esc == 1){
-                    System.out.println("Quantas pessoas vão dividir a conta?");
-                    int num = leitor.nextInt();
-                    leitor.nextLine();
-                    mesaComanda.dividirConta(mesaComanda.getValor(), num);
-                    System.out.printf("Valor atualizado: R$%.2f\n", mesaComanda.getValor());
+                    int num;
+                    do {
+                        System.out.print("Quantas pessoas vão dividir a conta? ");
+                        num = leitor.nextInt(); leitor.nextLine();
+                        if (num <= clientes.length && num > 0){
+                            System.out.printf("Valor para cada pessoa: R$%.2f\n", mesaComanda.dividirConta(mesaComanda.getValor(), num));
+                        } else {
+                            System.out.println("coloque uma quantidade plausivel de pessoas");
+                        }
+                    } while (num > clientes.length || num <= 0);
                 }
             }
+
+            do {
+                System.out.print("Digite 1 para efetuar o pagamento: ");
+                esc = leitor.nextInt();
+                leitor.nextLine();  
+            } while (esc != 1);
+            System.out.println("Pagamento realizado com sucesso");
+
+            this.cancelar();
 
         } else{
             System.out.println("Essa mesa não está reservada");

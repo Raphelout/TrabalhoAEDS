@@ -56,32 +56,45 @@ public class Restaurante {
 
     public void cancelarReserva(){
         System.out.print("Digite a mesa que deseja retirar a reserva: ");
-        listaM.get(leitor.nextInt()).cancelar();
+        listaM.get(leitor.nextInt()-1).cancelar();
     }
 
     public void fazerPedido(){
         int imesa;
-        System.out.print("Digite a mesa que deseja fazer o pedido: ");
+        System.out.print("\nDigite a mesa que deseja fazer o pedido: ");
         imesa = leitor.nextInt(); leitor.nextLine();
         listaM.get(imesa-1).pedir();
     }
 
     public void pagarPedido(){
         int imesa;
-        System.out.print("Digite a mesa que deseja pagar: ");
+        System.out.print("\nDigite a mesa que deseja pagar: ");
         imesa = leitor.nextInt(); leitor.nextLine();
         listaM.get(imesa-1).pagar();
     }
 
     //Lista mesas reservadas
-    public void listarMesas(){
-        System.out.println("Mesas reservadas: ");
-        for(int i = 0; i < listaM.size(); i++){
-            if (listaM.get(i).getReserva() == true){
-                System.out.println("Mesa[" + listaM.get(i).getNumeroMesa() + "]: " + listaM.get(i).clientes[0].getNome() + " (" + listaM.get(i).getData() + ")");
+    public boolean listarMesas(){
+        
+        //Confere se há mesas reservadas
+        boolean temMesa = false;
+        for (Mesa m : listaM){
+            if (m.getReserva() == true) {
+                temMesa = true;
             }
         }
-        System.out.println();
+        
+        if (temMesa) {
+            System.out.println("Mesas reservadas: ");
+            for(int i = 0; i < listaM.size(); i++){
+                if (listaM.get(i).getReserva() == true){
+                    System.out.println("Mesa[" + listaM.get(i).getNumeroMesa() + "]: " + listaM.get(i).clientes[0].getNome() + " (" + listaM.get(i).getData() + ")");
+                }
+            }
+        } else {
+            System.out.println("Não há mesas reservadas");
+        }
+        return temMesa;
     }
 
     //Menu
@@ -102,26 +115,29 @@ public class Restaurante {
 
             switch (escolha) {
                 case 1: //Reservar mesa 
-                    /* falta fazer com que a disponibilidade de mesas seja relativa à data */
                     listaM.get(findVazia()).reservar();
                     break;
         
                 case 2: //Cancelar reserva
-                    this.cancelarReserva();
-                    break;//ok
+                    if (this.listarMesas() == true){
+                        this.cancelarReserva();
+                    }
+                    break;
             
                 case 3: //Listar mesas reservadas
                     this.listarMesas();
-                    break;//ok
+                    break;
             
                 case 4: //Fazer pedido
-                    this.listarMesas();
-                    this.fazerPedido();
-                    break;//ok
+                    if (this.listarMesas() == true){
+                        this.fazerPedido();
+                    }
+                    break;
             
                 case 5: //Pagar pelo pedido
-                    this.listarMesas();
-                    this.pagarPedido();
+                    if (this.listarMesas() == true){
+                        this.pagarPedido();
+                    }
                     break;
 
                 case 0: //Sair
