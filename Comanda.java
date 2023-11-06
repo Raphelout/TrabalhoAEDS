@@ -48,16 +48,11 @@ public class Comanda {
 
     //Imprime todos os pedidos do cliente e seus respectivos valores
     public void listarConsumo(){
-
-        if (mesacomanda.getReserva()){
-            System.out.println("\nCOMANDA");
-            for (int i = 0; i < codigoPedidos.size(); i++){
-                System.out.printf("Pedido[" + i + "]: " + this.nomePedidos.get(this.codigoPedidos.get(i) - 1) + " - R$%.2f\n", this.precoPedidos.get(this.codigoPedidos.get(i) - 1));
-            }
-            System.out.println("Valor: R$" + this.getValor());
-        } else {
-            System.out.println("Essa mesa não está reservada");
+        System.out.println("\nCOMANDA");
+        for (int i = 0; i < codigoPedidos.size(); i++){
+            System.out.printf("Pedido[" + i + "]: " + this.nomePedidos.get(this.codigoPedidos.get(i) - 1) + " - R$%.2f\n", this.precoPedidos.get(this.codigoPedidos.get(i) - 1));
         }
+        System.out.println("Valor: R$" + this.getValor());
     }
 
     //Cálculos envolvendo o valor total a ser pago
