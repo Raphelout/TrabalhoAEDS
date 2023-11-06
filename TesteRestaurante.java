@@ -13,11 +13,13 @@ public class TesteRestaurante {
         
         //Cria restaurante
         Restaurante r1 = new Restaurante("Buchinho Cheio", "Rua Infoslindos, 203, Coltecufmg", 10);
-
+        
         //Dá boas vindas
-        System.out.print("\nBem vindo ao Restaurante " + r1.getNome());
-        r1.menuRestaurante();
+        r1.recepcao();
 
+        //Fecha leitor :(
+        //tudo na vida tem um fim,
         leitor.close();
+        //assim como o leitor.
     }
 }

@@ -35,6 +35,7 @@ public class Restaurante {
     public void setEndereco(String endereco){
         this.endereco = endereco;
     }
+
     //Getters
     public String getNome(){
         return nome;
@@ -43,37 +44,79 @@ public class Restaurante {
         return endereco;
     }
 
+    //Dá boas vindas e chama o menu
+    public void recepcao(){
+        System.out.println();
+        for (int i = 0; i < (30 + this.getNome().length()); i++) {
+            System.out.print("-");
+        }
+        System.out.println("\n| Bem vindo ao Restaurante " + this.getNome() + "! |");
+        for (int i = 0; i < (30 + this.getNome().length()); i++) {
+            System.out.print("-");
+        }
+        this.menuRestaurante();
+    }
 
+    //Procura a primeira mesa vazia da lista
     public int findVazia(){
         for (int i = 0; i < listaM.size(); i++){
             if (listaM.get(i).getReserva() == false){
                 return i;
             }
         }
-        System.out.println("Não tem mesa vazia");
+        System.out.println("Não há mesas vazias");
         return listaM.size() + 1;
     }
 
+    //Cancela a reserva
     public void cancelarReserva(){
-        System.out.print("Digite a mesa que deseja retirar a reserva: ");
-        listaM.get(leitor.nextInt()-1).cancelar();
+        int imesa;
+        System.out.print("\nDigite a mesa que deseja cancelar a reserva: ");
+        imesa = leitor.nextInt(); leitor.nextLine();
+        if(imesa <= listaM.size() && imesa > 0){
+            listaM.get(imesa-1).cancelar();
+        } else {
+            System.out.println("Essa mesa não existe");
+        }
     }
 
+    //Faz o pedido
     public void fazerPedido(){
         int imesa;
         System.out.print("\nDigite a mesa que deseja fazer o pedido: ");
         imesa = leitor.nextInt(); leitor.nextLine();
-        listaM.get(imesa-1).pedir();
+        if(imesa <= listaM.size() && imesa > 0){
+            listaM.get(imesa-1).pedir();
+        } else {
+            System.out.println("Essa mesa não existe");
+        }
     }
 
+    //Lista pedidos
+    public void listarPedidos(){
+        int imesa;
+        System.out.print("\nDigite a mesa que deseja ver os pedidos: ");
+        imesa = leitor.nextInt(); leitor.nextLine();
+        if(imesa <= listaM.size() && imesa > 0){
+            listaM.get(imesa-1).mesaComanda.listarConsumo();
+        } else {
+            System.out.println("Essa mesa não existe");
+        }
+    }
+
+    //Paga o pedido
     public void pagarPedido(){
         int imesa;
         System.out.print("\nDigite a mesa que deseja pagar: ");
         imesa = leitor.nextInt(); leitor.nextLine();
-        listaM.get(imesa-1).pagar();
-    }
+        if(imesa <= listaM.size() && imesa > 0){
+            listaM.get(imesa-1).pagar();
+        } else {
+            System.out.println("Essa mesa não existe");
+        }
+    } 
 
-    //Lista mesas reservadas
+    //Lista de mesas reservadas
     public boolean listarMesas(){
         
         //Confere se há mesas reservadas
@@ -84,31 +127,35 @@ public class Restaurante {
             }
         }
         
+        //Se tiver mesas reservadas as imprime
         if (temMesa) {
             System.out.println("Mesas reservadas: ");
             for(int i = 0; i < listaM.size(); i++){
                 if (listaM.get(i).getReserva() == true){
                     System.out.println("Mesa[" + listaM.get(i).getNumeroMesa() + "]: " + listaM.get(i).clientes[0].getNome() + " (" + listaM.get(i).getData() + ")");
                 }
-            }
-        } else {
+            }   
+        } else { //Se não, não as imprime
             System.out.println("Não há mesas reservadas");
         }
         return temMesa;
     }
 
-    //Menu
+    //Menu de opções
     public void menuRestaurante(){
-        int escolha;
 
+        int escolha;
         do {
-            System.out.println("\nDigite o que quer fazer");
-            System.out.println("    [1] - Reservar mesa");
-            System.out.println("    [2] - Cancelar reserva");
-            System.out.println("    [3] - Listar mesas reservadas");
-            System.out.println("    [4] - Fazer pedido");
-            System.out.println("    [5] - Pagar pelo pedido");
-            System.out.println("    [0] - Sair");
+            System.out.println("\n\nDigite o que quer fazer:");
+            System.out.println("  [1] - Reservar mesa");
+            System.out.println("  [2] - Cancelar reserva");
+            System.out.println("  [3] - Listar mesas reservadas");
+            System.out.println("  [4] - Fazer pedido");
+            System.out.println("  [5] - Listar consumo");
+            System.out.println("  [6] - Pagar pelo pedido");
+            System.out.println("[0] - Sair");
+
+            //Pega código da opção
             escolha = leitor.nextInt();
             leitor.nextLine();
             System.out.println();
@@ -134,18 +181,24 @@ public class Restaurante {
                     }
                     break;
             
-                case 5: //Pagar pelo pedido
+                case 5: //Listar consumo
+                    if (this.listarMesas() == true){
+                        this.listarPedidos();
+                    }
+                    break;
+
+                case 6: //Pagar pelo pedido
                     if (this.listarMesas() == true){
                         this.pagarPedido();
                     }
                     break;
 
                 case 0: //Sair
-                    System.out.println("Obrigado por apreciar o restaurante :) ");
+                    System.out.println("Obrigado por apreciar o restaurante :)\n");
                     break;
 
                 default:
-                    System.out.println("Essa opção nao existe");
+                    System.out.println("Essa opção não existe");
                     break;
             }
         } while (escolha != 0);

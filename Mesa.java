@@ -36,30 +36,45 @@ public class Mesa {
         return reserva;
     }
 
-    //Reservar
+    //Reservar mesa
     public boolean reservar(){
-        System.out.println("A mesa é para quantas pessoas? [1:6]");
-        clientes = new Cliente[leitor.nextInt()]; //cria uma array de clientes dentro da mesa sendo reservada com o numero de clientes q o user informar
-        leitor.nextLine();
+
+        //Pede quantidade de pessoas para o usuário
+        System.out.println("PREENCHA AS SEGUINTES INFORMAÇÕES");
+        int qClientes;
+        do {
+            System.out.println("A mesa é para quantas pessoas? [1:6]");
+            qClientes = leitor.nextInt();
+            leitor.nextLine();
+            if (qClientes > 6 || qClientes <= 0 ){
+                System.out.println("Quantidade inválida de pessoas, tente novamente\n");
+            }
+        } while (qClientes > 6 || qClientes <= 0 );
+
+        //Cria uma array de clientes dentro da mesa sendo reservada, de acordo com o número de clientes que o usuário informar
+        clientes = new Cliente[qClientes];
         for (int i = 0; i < clientes.length; i++){
             clientes[i] = new Cliente();
         }
 
-        System.out.println("Quer reservar pra quando?");
+        //Pede data de reserva para o usuário
+        System.out.println("Quer reservar a mesa para quando?");
         this.data = leitor.nextLine();
 
+        //Pede informações sobre o representante da reserva
         System.out.println("\nPARA O/A/Ê REPRESENTANTE DA RESERVA");
         System.out.print("Por favor, informe o seu nome, senhor(a/e): ");
         clientes[0].setNome(leitor.nextLine());
-
-        System.out.print("Em seguida, o email para contato: ");
+        System.out.print("Em seguida, informe um email para contato: ");
         clientes[0].setEmail(leitor.nextLine());
-        System.out.println("MESA RESERVADA COM SUCESSO");
+
+        //Informa que mesa foi reservada
+        System.out.println("\nMESA RESERVADA COM SUCESSO");
         this.reserva = true;
         return true;
     }
 
-    //Cancelar reserva
+    //Cancelar reserva de mesa
     public boolean cancelar(){
         this.reserva = false;
         clientes = new Cliente[0];
@@ -67,30 +82,31 @@ public class Mesa {
         return false;
     }
 
+    //Menu de pedidos
     void pedir(){
-        if (this.reserva) {
 
+        if (this.reserva) {
             int esc;
             do {
-
                 System.out.println("\nCardápio");
-                System.out.println("    [1] - Canja de tatu vegetariana.............R$10,00");
-                System.out.println("    [2] - PF (prato feito)......................R$15,00");
-                System.out.println("    [3] - PQF (prato quase feito)...............R$14,99");
-                System.out.println("    [4] - Suco do bandeco (sabor vermelho)......R$3,05");
-                System.out.println("    [5] - Suco do bandeco (sabor roxo)..........R$3,00");
-                System.out.println("    [6] - Água não saborizada...................R$6,00");
+                System.out.println("  [1] - Canja de tatu vegetariana.............R$10,00");
+                System.out.println("  [2] - PF (prato feito)......................R$15,00");
+                System.out.println("  [3] - PQF (prato quase feito)...............R$14,99");
+                System.out.println("  [4] - Suco do bandeco (sabor vermelho)......R$3,05");
+                System.out.println("  [5] - Suco do bandeco (sabor roxo)..........R$3,00");
+                System.out.println("  [6] - Água não saborizada...................R$6,00");
                 System.out.println("[0] Finalizar pedido");
                 
-                //Pega o codigo do pedido
+                //Pega o código do pedido
                 esc = leitor.nextInt();
                 leitor.nextLine();
                 if (esc > 6 || esc < 0) {   
                     System.out.println("Essa opção não existe");
                     continue;
                 }
-                if (esc != 0) {
 
+                //Registra pedido na comanda
+                if (esc != 0) {
                     //Adiciona pedido na lista de pedidos
                     mesaComanda.codigoPedidos.add(esc);
                     System.out.println("\nPedido " + esc + " do valor de " + mesaComanda.precoPedidos.get(esc - 1) + " adicionado à comanda");
@@ -100,7 +116,6 @@ public class Mesa {
                     System.out.printf("Valor atual da comanda: " + "%.2f\n", mesaComanda.getValor());
                 }
             
-                  
             } while(esc != 0);
        
         } else {
@@ -108,16 +123,18 @@ public class Mesa {
         }
     }
 
+    //Pagar pelos pedidos
     public void pagar(){ 
 
         if (this.reserva){
-            // mostra a comanda toda
+
+            //Mostra a comanda
             mesaComanda.listarConsumo();
 
             int esc;
 
-            //Acrescentar 10% ao valor total (gorjeta)
-            System.out.print("Se você deseja pagar a gorjeta(10%), digite 1 (se não, digite 0): ");
+            //Se o cliente quiser, acrescenta 10% ao valor total (gorjeta)
+            System.out.print("\nSe você deseja pagar a gorjeta(10%), digite 1 (se não, digite 0): ");
             esc = leitor.nextInt();
             leitor.nextLine();   
             if (esc == 1){
@@ -125,7 +142,8 @@ public class Mesa {
                 System.out.printf("Valor atualizado: R$%.2f\n", mesaComanda.getValor());
             }
 
-            System.out.printf("Você gostaria de doar %.2f centavos para as crianças com câncer do Hospital Humberto Honda? Se sim, digite 1 (se não, digite 0): ", mesaComanda.calcularSobra());
+            //Se o cliente quiser, acrescenta centavos para o valor ficar inteiro (doação)
+            System.out.printf("\nVocê gostaria de doar %.2f centavos para as crianças com câncer do Hospital Humberto Honda? Se sim, digite 1 (se não, digite 0): ", mesaComanda.calcularSobra());
             esc = leitor.nextInt();
             leitor.nextLine();  
             if (esc == 1){
@@ -133,8 +151,9 @@ public class Mesa {
                 System.out.printf("Valor atualizado: R$%.2f\n", mesaComanda.getValor());
             }
 
+            //Se o cliente quiser, divide a conta entre as pessoas da mesa
             if (clientes.length > 1){
-                System.out.print("Se as pessoas da mesa gostariam de dividir a conta, digite 1 (se não, digite 0): ");
+                System.out.print("\nSe as pessoas da mesa gostariam de dividir a conta, digite 1 (se não, digite 0): ");
                 esc = leitor.nextInt();
                 leitor.nextLine();  
                 if (esc == 1){
@@ -145,14 +164,15 @@ public class Mesa {
                         if (num <= clientes.length && num > 0){
                             System.out.printf("Valor para cada pessoa: R$%.2f\n", mesaComanda.dividirConta(mesaComanda.getValor(), num));
                         } else {
-                            System.out.println("coloque uma quantidade plausivel de pessoas");
+                            System.out.println("Coloque uma quantidade plausivel de pessoas");
                         }
                     } while (num > clientes.length || num <= 0);
                 }
             }
 
+            //Efetua pagamento
             do {
-                System.out.print("Digite 1 para efetuar o pagamento: ");
+                System.out.print("\nDigite 1 para efetuar o pagamento: ");
                 esc = leitor.nextInt();
                 leitor.nextLine();  
             } while (esc != 1);
@@ -163,7 +183,6 @@ public class Mesa {
         } else{
             System.out.println("Essa mesa não está reservada");
         }
-
     }
 
 }
