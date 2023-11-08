@@ -88,13 +88,10 @@ public class Mesa {
         if (this.reserva) {
             int esc;
             do {
-                System.out.println("\nCardápio");
-                System.out.println("  [1] - Canja de tatu vegetariana.............R$10,00");
-                System.out.println("  [2] - PF (prato feito)......................R$15,00");
-                System.out.println("  [3] - PQF (prato quase feito)...............R$14,99");
-                System.out.println("  [4] - Suco do bandeco (sabor vermelho)......R$3,05");
-                System.out.println("  [5] - Suco do bandeco (sabor roxo)..........R$3,00");
-                System.out.println("  [6] - Água não saborizada...................R$6,00");
+                System.out.println("\nCARDÁPIO");
+                for (int i = 0; i < mesaComanda.nomePedidos.size(); i++){
+                    System.out.printf("  [" + (i+1) + "] R$%.2f - " + mesaComanda.nomePedidos.get(i) + "\n", mesaComanda.precoPedidos.get(i));
+                }
                 System.out.println("[0] Finalizar pedido");
                 
                 //Pega o código do pedido
